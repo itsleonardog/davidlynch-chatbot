@@ -27,6 +27,7 @@ gem "stimulus-rails"
 # gem "jbuilder"
 gem "ruby-openai"
 gem "solid_cable"
+gem "solid_queue"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
