@@ -6,10 +6,10 @@ class ChatbotJob < ApplicationJob
     chatgpt_response = client.chat(
       parameters: {
         model: "gpt-4o-mini",
-        messages: [role: "user", content: "Hello!"]
+        messages: questions_formatted_for_openai
       }
     )
-    new_content = questions_formatted_for_openai
+    new_content = chatgpt_response["choices"][0]["message"]["content"]
     @question.update(ai_answer: new_content)
   end
 
