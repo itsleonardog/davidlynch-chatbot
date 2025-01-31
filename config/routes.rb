@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :questions, only: [:index, :create]
+  get "why-login", to: "pages#why_login"
 end
