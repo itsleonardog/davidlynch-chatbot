@@ -1,4 +1,12 @@
-<h1>Welcome! This is a David Lynch chatbot.</h1>
-<%= link_to "Login", new_user_session_path, class: "" %>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path('glastonbury-grove.jpg') %>);">
+  <div class="container">
+    <h1>Welcome to the David Lynch chatbot</h1>
+    <p>
+      This chatbot is a work in progress. It is designed to help you explore the
+      world of David Lynch and his conception of the art life.
+    </p>
+    <%= link_to "Login", new_user_session_path, class: "btn btn-login" %>
 
-<p><%= link_to "Why are we asking you to log in?", why_login_path %></p>
+    <p><%= link_to "Why are we asking you to log in?", why_login_path %></p>
+  </div>
+</div>

@@ -34,13 +34,13 @@
   }
 
   .user-question {
-    align-self: flex-start;
+    align-self: flex-end;
     background: $blue;
     color: $light-gray;
   }
 
   .ai-answer {
-    align-self: flex-end;
+    align-self: flex-start;
     background: $gray-200;
   }
 
