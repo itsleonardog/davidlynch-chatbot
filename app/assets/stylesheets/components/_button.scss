@@ -1,4 +1,12 @@
 .btn-login {
   color: black;
   background-color: #9a081a;
+  padding: 8px 24px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #68030e;
+    color: white;
+    opacity: .7;
+  }
 }

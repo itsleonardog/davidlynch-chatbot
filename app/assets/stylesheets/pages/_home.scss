@@ -14,10 +14,18 @@
     font-weight: bold;
   }
 
-  p {
-    font-size: 20px;
+  .why-login-paragraph, p {
     color: white;
     opacity: .7;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   }
+
+  .why-login-paragraph {
+    font-size: 13px;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
 }
