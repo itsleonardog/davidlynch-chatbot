@@ -1,9 +1,11 @@
-<%= render "shared/navbar" %>
-<div class="container chatbot">
-  <h1>Chat with us</h1>
-  <div id="questions">
-    <%= render @questions %>
-  </div>
+<div class="main" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path('red-room.jpg') %>);">
+  <%= render "shared/navbar" %>
+  <div class="container chatbot">
+    <h1>David Lynch</h1>
+    <div id="questions" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path('redroom-backdrop.webp') %>);">
+      <%= render @questions %>
+    </div>
 
-  <%= render "form", question: @question %>
+    <%= render "form", question: @question %>
+  </div>
 </div>
