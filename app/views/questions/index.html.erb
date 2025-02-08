@@ -1,8 +1,14 @@
 <div class="main" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path('red-room.jpg') %>);">
-  <%= render "shared/navbar" %>
   <div class="container chatbot">
-    <h1>David Lynch</h1>
-    <div id="questions" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path('redroom-backdrop.webp') %>);">
+    <div class="chat-header">
+      <h1>Chat with David Lynch</h1>
+      <% if user_signed_in? %>
+        <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+      <% end %>
+    </div>
+    <div id="questions">
       <%= render @questions %>
     </div>
 

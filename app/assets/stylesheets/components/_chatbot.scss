@@ -1,11 +1,18 @@
 .chatbot {
-  background: white;
-  margin-top: 9px;
+  background: #efefef;
   height: calc(100vh - 75px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+  max-width: 720px;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+  }
 
   h1 {
     border-bottom: 1px solid $gray-200;
@@ -35,13 +42,15 @@
 
   .user-question {
     align-self: flex-end;
-    background: $blue;
-    color: $light-gray;
+    background: #ffffff;
+    color: #062423;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
 
   .ai-answer {
     align-self: flex-start;
-    background: $gray-200;
+    background: #ececec;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
 
   #new_question {
