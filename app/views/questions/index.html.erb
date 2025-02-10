@@ -3,7 +3,9 @@
     <div class="chat-header">
       <h1>Chat with David Lynch</h1>
       <% if user_signed_in? %>
-        <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link" %>
+        <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link" do %>
+          <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: x-large; color: black;"></i>
+        <% end %>
       <% else %>
         <%= link_to "Login", new_user_session_path, class: "nav-link" %>
       <% end %>
