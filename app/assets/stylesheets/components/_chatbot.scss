@@ -1,4 +1,3 @@
-// David Lynch Theme Variables
 $dark-blue: #0a0e17;
 $red-room: #9b0000;
 $black-lodge: #000000;
@@ -7,7 +6,10 @@ $zigzag-color: #b11313;
 $curtain-red: #8b0000;
 $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
 
-// Main Interface
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+
 .lynch-interface {
   position: relative;
   width: 100%;
@@ -17,9 +19,12 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
+  @media (max-width: $breakpoint-sm) {
+    background-color: $dark-blue;
+  }
 }
 
-// Red Curtains
 .red-curtains-container {
   position: relative;
   width: 100%;
@@ -44,17 +49,25 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   );
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
   z-index: 3;
-  
+  transition: width 0.3s ease;
+
   &.left {
     left: 0;
   }
-  
+
   &.right {
     right: 0;
   }
+
+  @media (max-width: $breakpoint-md) {
+    width: 10%;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    display: none;
+  }
 }
 
-// Chatbot Container
 .chatbot-container {
   background: $dark-blue;
   height: calc(100vh - 40px);
@@ -67,28 +80,41 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   position: relative;
   z-index: 2;
   overflow: hidden;
+  margin: 0 20px;
+
+  @media (max-width: $breakpoint-md) {
+    height: calc(100vh - 20px);
+    margin: 0 10px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    height: 100vh;
+    margin: 0;
+    border-width: 0;
+    max-width: 100%;
+    border-radius: 0;
+  }
 }
 
-// Chat Header
 .chat-header {
   background: $black-lodge;
   border-bottom: 3px solid $zigzag-color;
   padding: 1rem;
   position: relative;
   z-index: 4;
-  
+
   .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .title-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   h1 {
     color: $white-lodge;
     font-family: 'Courier New', monospace;
@@ -97,8 +123,18 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
     margin: 0;
     text-shadow: $text-shadow;
     font-size: 1.5rem;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.1rem;
+      letter-spacing: 0;
+    }
   }
-  
+
   .zigzag-line {
     height: 6px;
     width: 100%;
@@ -106,20 +142,33 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
                 linear-gradient(-45deg, transparent 33.333%, $zigzag-color 33.333%, $zigzag-color 66.667%, transparent 66.667%);
     background-size: 12px 12px;
     margin-top: 5px;
+
+    @media (max-width: $breakpoint-sm) {
+      height: 4px;
+      background-size: 8px 8px;
+    }
   }
-  
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 0.7rem;
+  }
+
   .header-actions {
     .nav-link {
       color: $white-lodge;
       font-size: 1.2rem;
       transition: all 0.3s ease;
-      
+
       &:hover {
         color: $red-room;
         transform: scale(1.1);
       }
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1rem;
+      }
     }
-    
+
     .login-button {
       background: $red-room;
       color: $white-lodge;
@@ -129,16 +178,20 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
       font-family: 'Courier New', monospace;
       letter-spacing: 1px;
       transition: all 0.3s ease;
-      
+
       &:hover {
         background: lighten($red-room, 10%);
         box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      }
+
+      @media (max-width: $breakpoint-sm) {
+        padding: 0.2rem 0.7rem;
+        font-size: 0.9rem;
       }
     }
   }
 }
 
-// Chat Messages
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -147,22 +200,21 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   flex-direction: column;
   gap: 1.5rem;
   background: rgba($dark-blue, 0.9);
-  
+
   &::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: rgba($black-lodge, 0.5);
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: rgba($red-room, 0.7);
     border-radius: 4px;
   }
 }
 
-// Message Container
 .message-container {
   display: flex;
   flex-direction: column;
@@ -171,17 +223,25 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   animation: fadeIn 0.5s ease-out;
 }
 
-// Message Styling
 .message {
   width: 100%;
-  
+
   .message-content {
     display: flex;
     align-items: flex-end;
     gap: 0.8rem;
     max-width: 80%;
+
+    @media (max-width: $breakpoint-md) {
+      max-width: 90%;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      max-width: 95%;
+      gap: 0.5rem;
+    }
   }
-  
+
   .message-avatar {
     width: 40px;
     height: 40px;
@@ -192,19 +252,28 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    
+
     i {
       font-size: 1.2rem;
       color: $white-lodge;
     }
+
+    @media (max-width: $breakpoint-sm) {
+      width: 32px;
+      height: 32px;
+
+      i {
+        font-size: 1rem;
+      }
+    }
   }
-  
+
   .message-bubble {
     padding: 0.8rem 1.2rem;
     border-radius: 12px;
@@ -212,20 +281,25 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
     word-break: break-word;
     line-height: 1.5;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
   }
 }
 
-// User Message
 .user-message {
   .message-content {
     margin-left: auto;
     flex-direction: row-reverse;
   }
-  
+
   .message-avatar {
     background: linear-gradient(135deg, #4a6fa1, #2c4160);
   }
-  
+
   .message-bubble {
     background: rgba(74, 111, 161, 0.8);
     color: $white-lodge;
@@ -233,28 +307,27 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   }
 }
 
-// AI Message (David Lynch)
 .ai-message {
   .message-content {
     margin-right: auto;
   }
-  
+
   .lynch-avatar {
     background: $black-lodge;
     border: 2px solid $red-room;
-    
+
     img {
       filter: contrast(1.1) grayscale(0.3);
     }
   }
-  
+
   .lynch-bubble {
     background: rgba(155, 0, 0, 0.8);
     color: $white-lodge;
     border-top-left-radius: 0;
     font-family: 'Courier New', monospace;
     letter-spacing: 0.5px;
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -265,7 +338,7 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
       background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
       opacity: 0.5;
     }
-    
+
     .ai-text {
       position: relative;
       z-index: 1;
@@ -273,36 +346,39 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   }
 }
 
-// Thinking Animation
 .thinking-animation {
   display: flex;
   gap: 4px;
   padding: 0.3rem 0;
-  
+
   span {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: $white-lodge;
     animation: pulse 1s infinite ease-in-out;
-    
+
     &:nth-child(2) {
       animation-delay: 0.2s;
     }
-    
+
     &:nth-child(3) {
       animation-delay: 0.4s;
     }
   }
 }
 
-// Chat Input
 .chat-input-wrapper {
   padding: 1rem;
   background: $black-lodge;
   border-top: 3px solid $zigzag-color;
   z-index: 4;
   position: relative;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 0.7rem;
+    border-top-width: 2px;
+  }
 }
 
 .lynch-form {
@@ -314,13 +390,17 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
     border-radius: 8px;
     padding: 0.5rem 1rem;
     transition: all 0.3s ease;
-    
+
     &:focus-within {
       border-color: $red-room;
       box-shadow: 0 0 10px rgba($red-room, 0.3);
     }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0.4rem 0.8rem;
+    }
   }
-  
+
   .chat-input {
     flex: 1;
     background: transparent;
@@ -332,16 +412,22 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
     resize: none;
     min-height: 24px;
     max-height: 120px;
-    
+
     &:focus {
       outline: none;
     }
-    
+
     &::placeholder {
       color: rgba($white-lodge, 0.6);
     }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.95rem;
+      padding: 0.3rem 0;
+      max-height: 80px;
+    }
   }
-  
+
   .chat-submit-button {
     background: transparent;
     border: none;
@@ -350,20 +436,24 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
     padding: 0.5rem;
     font-size: 1.2rem;
     transition: all 0.3s ease;
-    
+
     &:disabled {
       color: rgba($white-lodge, 0.3);
       cursor: not-allowed;
     }
-    
+
     &:not(:disabled):hover {
       color: $red-room;
       transform: scale(1.1);
     }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0.3rem;
+      font-size: 1rem;
+    }
   }
 }
 
-// Ambient Overlay
 .ambient-overlay {
   position: fixed;
   top: 0;
@@ -373,9 +463,12 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
   pointer-events: none;
   z-index: 5;
+
+  @media (max-width: $breakpoint-sm) {
+    opacity: 0.4;
+  }
 }
 
-// Noise Overlay
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -386,9 +479,12 @@ $text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   opacity: 0.05;
   pointer-events: none;
   z-index: 6;
+
+  @media (max-width: $breakpoint-sm) {
+    opacity: 0.03;
+  }
 }
 
-// Animations
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
