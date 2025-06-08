@@ -1,10 +1,54 @@
 <%= simple_form_for question,
-  html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }} do |f| %>
-  <div class="input-group mb-3 w-100">
-    <div class="form-floating">
-      <%= f.input :user_question, label: false, wrapper: false %>
-      <%= f.label :user_question, "Your question" %>
-    </div>
-    <%= f.submit "Ask", id: "new-question-button", class: "btn btn-primary" %>
+  html: { class: "lynch-form", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }} do |f| %>
+  <div class="input-wrapper">
+    <%= f.input :user_question, 
+      label: false, 
+      wrapper: false, 
+      placeholder: "Ask David Lynch something...", 
+      input_html: { 
+        class: "chat-input", 
+        autocomplete: "off" 
+      } 
+    %>
+    <button type="submit" class="chat-submit-button" disabled>
+      <i class="fa-solid fa-paper-plane"></i>
+    </button>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const chatInput = document.querySelector('.chat-input');
+    const submitButton = document.querySelector('.chat-submit-button');
+    const chatMessages = document.getElementById('questions');
+
+    if (chatInput && submitButton) {
+      // Enable/disable submit button based on input content
+      chatInput.addEventListener('input', function() {
+        submitButton.disabled = !this.value.trim();
+      });
+
+      // Auto-resize textarea as user types
+      chatInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+      });
+      
+      // Focus input on page load
+      chatInput.focus();
+    }
+    
+    // Scroll to bottom of messages
+    if (chatMessages) {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Add subtle film grain effect
+    const noiseOverlay = document.querySelector('.noise-overlay');
+    if (noiseOverlay) {
+      setInterval(() => {
+        noiseOverlay.style.backgroundPosition = `${Math.random() * 100}% ${Math.random() * 100}%`;
+      }, 50);
+    }
+  });
+</script>

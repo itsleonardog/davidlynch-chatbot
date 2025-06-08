@@ -1,67 +1,401 @@
-.chatbot {
-  background: #efefef;
-  height: calc(100vh - 75px);
+// David Lynch Theme Variables
+$dark-blue: #0a0e17;
+$red-room: #9b0000;
+$black-lodge: #000000;
+$white-lodge: #f5f5f5;
+$zigzag-color: #b11313;
+$curtain-red: #8b0000;
+$text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
+
+// Main Interface
+.lynch-interface {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: $black-lodge;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+// Red Curtains
+.red-curtains-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.red-curtains {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 20%;
+  background: repeating-linear-gradient(
+    90deg,
+    $curtain-red,
+    $curtain-red 20px,
+    darken($curtain-red, 10%) 20px,
+    darken($curtain-red, 10%) 40px
+  );
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+  z-index: 3;
+  
+  &.left {
+    left: 0;
+  }
+  
+  &.right {
+    right: 0;
+  }
+}
+
+// Chatbot Container
+.chatbot-container {
+  background: $dark-blue;
+  height: calc(100vh - 40px);
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
-  max-width: 720px;
-  border-radius: 20px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border: 2px solid $zigzag-color;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
 
-  .chat-header {
+// Chat Header
+.chat-header {
+  background: $black-lodge;
+  border-bottom: 3px solid $zigzag-color;
+  padding: 1rem;
+  position: relative;
+  z-index: 4;
+  
+  .header-content {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    width: 100%;
-    padding: 1rem;
-    border-bottom: 1px solid $gray-200;
+    align-items: center;
   }
-
-  h1 {
-    margin: 0;
-    padding: 0;
-  }
-
-  #questions {
-    height: 100%;
-    overflow: scroll;
-    padding: 1rem;
-  }
-
-  .question {
+  
+  .title-wrapper {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
   }
-
-  .user-question, .ai-answer {
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    max-width: 70%;
-    width: fit-content;
-    word-wrap: break-word;
+  
+  h1 {
+    color: $white-lodge;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: $text-shadow;
+    font-size: 1.5rem;
   }
-
-  .user-question {
-    align-self: flex-end;
-    background: #ffffff;
-    color: #062423;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  
+  .zigzag-line {
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(45deg, transparent 33.333%, $zigzag-color 33.333%, $zigzag-color 66.667%, transparent 66.667%),
+                linear-gradient(-45deg, transparent 33.333%, $zigzag-color 33.333%, $zigzag-color 66.667%, transparent 66.667%);
+    background-size: 12px 12px;
+    margin-top: 5px;
   }
-
-  .ai-answer {
-    align-self: flex-start;
-    background: #e8e8e8;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  }
-
-  #new_question {
-    border-top: 1px solid $gray-200;
-    padding: 1rem;
-
-    .form-group {
-      margin-bottom: 0;
+  
+  .header-actions {
+    .nav-link {
+      color: $white-lodge;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        color: $red-room;
+        transform: scale(1.1);
+      }
+    }
+    
+    .login-button {
+      background: $red-room;
+      color: $white-lodge;
+      padding: 0.3rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: lighten($red-room, 10%);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      }
     }
   }
+}
+
+// Chat Messages
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: rgba($dark-blue, 0.9);
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba($black-lodge, 0.5);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba($red-room, 0.7);
+    border-radius: 4px;
+  }
+}
+
+// Message Container
+.message-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  animation: fadeIn 0.5s ease-out;
+}
+
+// Message Styling
+.message {
+  width: 100%;
+  
+  .message-content {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.8rem;
+    max-width: 80%;
+  }
+  
+  .message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    i {
+      font-size: 1.2rem;
+      color: $white-lodge;
+    }
+  }
+  
+  .message-bubble {
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    position: relative;
+    word-break: break-word;
+    line-height: 1.5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// User Message
+.user-message {
+  .message-content {
+    margin-left: auto;
+    flex-direction: row-reverse;
+  }
+  
+  .message-avatar {
+    background: linear-gradient(135deg, #4a6fa1, #2c4160);
+  }
+  
+  .message-bubble {
+    background: rgba(74, 111, 161, 0.8);
+    color: $white-lodge;
+    border-top-right-radius: 0;
+  }
+}
+
+// AI Message (David Lynch)
+.ai-message {
+  .message-content {
+    margin-right: auto;
+  }
+  
+  .lynch-avatar {
+    background: $black-lodge;
+    border: 2px solid $red-room;
+    
+    img {
+      filter: contrast(1.1) grayscale(0.3);
+    }
+  }
+  
+  .lynch-bubble {
+    background: rgba(155, 0, 0, 0.8);
+    color: $white-lodge;
+    border-top-left-radius: 0;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+      opacity: 0.5;
+    }
+    
+    .ai-text {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+// Thinking Animation
+.thinking-animation {
+  display: flex;
+  gap: 4px;
+  padding: 0.3rem 0;
+  
+  span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $white-lodge;
+    animation: pulse 1s infinite ease-in-out;
+    
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+}
+
+// Chat Input
+.chat-input-wrapper {
+  padding: 1rem;
+  background: $black-lodge;
+  border-top: 3px solid $zigzag-color;
+  z-index: 4;
+  position: relative;
+}
+
+.lynch-form {
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    background: rgba($dark-blue, 0.8);
+    border: 1px solid rgba($red-room, 0.5);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    
+    &:focus-within {
+      border-color: $red-room;
+      box-shadow: 0 0 10px rgba($red-room, 0.3);
+    }
+  }
+  
+  .chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: $white-lodge;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    resize: none;
+    min-height: 24px;
+    max-height: 120px;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    &::placeholder {
+      color: rgba($white-lodge, 0.6);
+    }
+  }
+  
+  .chat-submit-button {
+    background: transparent;
+    border: none;
+    color: $white-lodge;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    
+    &:disabled {
+      color: rgba($white-lodge, 0.3);
+      cursor: not-allowed;
+    }
+    
+    &:not(:disabled):hover {
+      color: $red-room;
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Ambient Overlay
+.ambient-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+// Noise Overlay
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 6;
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.5; }
 }
