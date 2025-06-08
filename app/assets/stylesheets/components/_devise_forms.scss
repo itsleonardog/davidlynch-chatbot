@@ -1,92 +1,51 @@
-// Variables (matching the chatbot theme)
-$dark-blue: #0a0e17;
-$red-room: #9b0000;
-$black-lodge: #000000;
-$white-lodge: #ffffff;
-$zigzag-color: #b30000;
-$curtain-red: #8b0000;
-$text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
 
-// Breakpoints
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
 
-// Main Devise Form Container
 .lynch-auth-container {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background-color: $black-lodge;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  font-family: 'Courier New', monospace;
+  @include lynch-container;
 }
 
-// Red Curtains
 .auth-curtain {
   position: absolute;
   top: 0;
   height: 100%;
   width: 20%;
-  background: repeating-linear-gradient(
-    90deg,
-    $curtain-red,
-    $curtain-red 20px,
-    darken($curtain-red, 10%) 20px,
-    darken($curtain-red, 10%) 40px
-  );
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+  @include red-curtain;
   z-index: 3;
   transition: width 0.3s ease;
-  
+
   &.left {
     left: 0;
   }
-  
+
   &.right {
     right: 0;
   }
-  
+
   @media (max-width: $breakpoint-md) {
     width: 10%;
   }
-  
+
   @media (max-width: $breakpoint-sm) {
-    display: none; // Hide curtains on mobile
+    display: none;
   }
 }
 
-// Auth Form Content
 .auth-content {
-  background: $dark-blue;
-  width: 100%;
-  max-width: 500px;
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include lynch-content-box;
   text-align: center;
-  border: 2px solid $zigzag-color;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.1);
-  position: relative;
-  z-index: 2;
-  margin: 0 20px;
-  
-  @media (max-width: $breakpoint-md) {
+
+  @include media-md {
     padding: 2rem;
   }
-  
-  @media (max-width: $breakpoint-sm) {
+
+  @include media-sm {
     margin: 0;
     border-width: 0;
     height: 100vh;
     max-width: 100%;
     justify-content: center;
   }
-  
+
   h2 {
     color: $white-lodge;
     font-size: 2rem;
@@ -94,13 +53,13 @@ $breakpoint-lg: 992px;
     letter-spacing: 3px;
     margin-bottom: 1.5rem;
     text-shadow: $text-shadow;
-    
+
     @media (max-width: $breakpoint-sm) {
       font-size: 1.7rem;
       letter-spacing: 2px;
     }
   }
-  
+
   .zigzag-line {
     height: 6px;
     width: 100%;
@@ -108,7 +67,7 @@ $breakpoint-lg: 992px;
     background-image: linear-gradient(45deg, transparent 33.333%, $zigzag-color 33.333%, $zigzag-color 66.667%, transparent 66.667%),
                     linear-gradient(-45deg, transparent 33.333%, $zigzag-color 33.333%, $zigzag-color 66.667%, transparent 66.667%);
     background-size: 12px 12px;
-    
+
     @media (max-width: $breakpoint-sm) {
       height: 4px;
       background-size: 8px 8px;
@@ -117,31 +76,30 @@ $breakpoint-lg: 992px;
   }
 }
 
-// Form Styling
 .auth-form {
   width: 100%;
-  
+
   .form-inputs {
     margin-bottom: 2rem;
-    
+
     .form-group {
       margin-bottom: 1.5rem;
       text-align: left;
     }
-    
+
     label {
       color: lighten($red-room, 20%);
       font-size: 1rem;
       margin-bottom: 0.5rem;
       display: block;
       letter-spacing: 1px;
-      
+
       abbr {
         text-decoration: none;
         border: none;
       }
     }
-    
+
     .form-control {
       background-color: rgba($black-lodge, 0.7);
       border: 1px solid $red-room;
@@ -150,28 +108,28 @@ $breakpoint-lg: 992px;
       width: 100%;
       font-family: 'Courier New', monospace;
       transition: all 0.3s ease;
-      
+
       &:focus {
         outline: none;
         border-color: lighten($red-room, 20%);
         box-shadow: 0 0 10px rgba($red-room, 0.5);
       }
-      
+
       &::placeholder {
         color: rgba($white-lodge, 0.4);
       }
     }
-    
+
     .form-text {
       color: rgba($white-lodge, 0.7);
       font-size: 0.8rem;
       margin-top: 0.3rem;
     }
-    
+
     .boolean {
       display: flex;
       align-items: center;
-      
+
       input[type="checkbox"] {
         margin-right: 0.5rem;
         appearance: none;
@@ -181,7 +139,7 @@ $breakpoint-lg: 992px;
         border: 1px solid $red-room;
         position: relative;
         cursor: pointer;
-        
+
         &:checked:after {
           content: '✓';
           position: absolute;
@@ -191,16 +149,16 @@ $breakpoint-lg: 992px;
           left: 3px;
         }
       }
-      
+
       label {
         margin-bottom: 0;
       }
     }
   }
-  
+
   .form-actions {
     margin-bottom: 1.5rem;
-    
+
     .btn {
       background-color: $red-room;
       color: $white-lodge;
@@ -214,7 +172,7 @@ $breakpoint-lg: 992px;
       width: 100%;
       font-family: 'Courier New', monospace;
       box-shadow: 0 0 15px rgba($red-room, 0.3);
-      
+
       &:hover {
         background-color: darken($red-room, 10%);
         transform: scale(1.02);
@@ -224,7 +182,6 @@ $breakpoint-lg: 992px;
   }
 }
 
-// Devise Links
 .devise-links {
   a {
     color: rgba($white-lodge, 0.7);
@@ -233,7 +190,7 @@ $breakpoint-lg: 992px;
     transition: all 0.3s ease;
     display: inline-block;
     margin-bottom: 0.5rem;
-    
+
     &:hover {
       color: $white-lodge;
       text-decoration: underline;
@@ -242,40 +199,22 @@ $breakpoint-lg: 992px;
   }
 }
 
-// Ambient Overlay
 .auth-ambient-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-  pointer-events: none;
-  z-index: 1;
+  @include ambient-overlay;
   
-  @media (max-width: $breakpoint-sm) {
+  @include media-sm {
     opacity: 0.4;
   }
 }
 
-// Noise Overlay
 .auth-noise-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: 1;
+  @include noise-overlay;
   
-  @media (max-width: $breakpoint-sm) {
+  @include media-sm {
     opacity: 0.03;
   }
 }
 
-// Error messages
 .invalid-feedback {
   color: lighten($red-room, 30%);
   font-size: 0.9rem;

@@ -1,10 +1,42 @@
-<p>
-  The reason we are asking you to login, is just so you have your questions saved!
-  This way, you can come back and see what you've asked before, and what the chatbot has answered.
-</p>
+<div class="lynch-container">
+  <!-- Red curtains on the sides -->
+  <div class="curtain left"></div>
+  <div class="curtain right"></div>
 
-<p>
-  Frankly, we don't care who you are, or what you ask. We just want to provide you with an efficient service that you can use.
-</p>
+  <!-- Ambient and noise overlays -->
+  <div class="ambient-overlay"></div>
+  <div class="noise-overlay"></div>
 
-<p>So, will you <%= link_to "login", new_user_session_path, class: "" %> or not?</p>
+  <div class="lynch-content">
+    <h1 class="lynch-title">THE SECRETS BEHIND THE CURTAIN</h1>
+    <div class="zigzag-line"></div>
+    
+    <div class="lynch-text">
+      <p>
+        "In this strange world, there are echoes of our conversations that linger like smoke in the Black Lodge."
+      </p>
+      
+      <p>
+        We ask you to create an account not to track you or to peer into your soul, but to preserve the whispers 
+        between worlds. Your questions and the answers they summon will remain, waiting for you when you return 
+        through the red curtains.
+      </p>
+      
+      <p>
+        "The path you take is not my path, but all paths lead to the same place." Your identity remains yours alone, 
+        shrouded in the same mystery as the owls in the night.
+      </p>
+      
+      <p>
+        The log remembers what the mind forgets. Your conversations with me will be recorded in the cosmic log, 
+        accessible only to you when you return.
+      </p>
+    </div>
+    
+    <div class="lynch-actions">
+      <%= link_to "ENTER THE BLACK LODGE", new_user_session_path, class: "btn-lynch" %>
+      <span class="or-divider">OR</span>
+      <%= link_to "RETURN TO THE WAITING ROOM", root_path, class: "btn-lynch-secondary" %>
+    </div>
+  </div>
+</div>

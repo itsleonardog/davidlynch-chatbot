@@ -1,0 +1,113 @@
+
+
+.lynch-container {
+  @include lynch-container;
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 20%;
+  @include red-curtain;
+  z-index: 3;
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+
+  @include media-sm {
+    width: 0;
+  }
+}
+
+.lynch-content {
+  position: relative;
+  z-index: 5;
+  width: 80%;
+  max-width: 800px;
+  padding: 2rem;
+  text-align: center;
+
+  @media (max-width: $breakpoint-sm) {
+    width: 90%;
+    padding: 1rem;
+  }
+}
+
+.lynch-title {
+  font-size: 2.5rem;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  text-shadow: $text-shadow;
+  color: $white-lodge;
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1.8rem;
+  }
+}
+
+.zigzag-line {
+  @include zigzag-pattern(10px, 20px);
+  margin: 1.5rem auto;
+  width: 60%;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.lynch-text {
+  margin: 2rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+
+  p {
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+
+    &:first-child {
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.lynch-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-lynch {
+  @include lynch-button;
+}
+
+.btn-lynch-secondary {
+  @include lynch-button(transparent, $white-lodge, 0.8rem 1.5rem);
+  border-width: 1px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.or-divider {
+  display: block;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.ambient-overlay {
+  @include ambient-overlay;
+}
+
+.noise-overlay {
+  @include noise-overlay;
+}

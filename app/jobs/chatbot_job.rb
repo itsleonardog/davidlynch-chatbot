@@ -3,18 +3,46 @@ class ChatbotJob < ApplicationJob
 
   def perform(question)
     @question = question
-    chatgpt_response = client.chat(
-      parameters: {
-        model: "gpt-4o-mini",
-        messages: questions_formatted_for_openai
-      }
-    )
-    new_content = chatgpt_response["choices"][0]["message"]["content"]
-    @question.update(ai_answer: new_content)
-    Turbo::StreamsChannel.broadcast_update_to(
-      "question_#{@question.id}",
-      target: "question_#{@question.id}",
-      partial: "questions/question", locals: { question: question })
+    Rails.logger.info("ChatbotJob started for question ID: #{@question.id}")
+    
+    begin
+      chatgpt_response = client.chat(
+        parameters: {
+          model: "gpt-3.5-turbo",
+          messages: questions_formatted_for_openai,
+          temperature: 0.7,
+          max_tokens: 500
+        }
+      )
+      
+      Rails.logger.info("OpenAI API call successful for question ID: #{@question.id}")
+      new_content = chatgpt_response["choices"][0]["message"]["content"]
+      @question.update(ai_answer: new_content)
+      
+      Turbo::StreamsChannel.broadcast_update_to(
+        "question_#{@question.id}",
+        target: "question_#{@question.id}",
+        partial: "questions/question", locals: { question: question })
+      
+    rescue => e
+      Rails.logger.error("Error in ChatbotJob for question ID: #{@question.id}. Error: #{e.class} - #{e.message}")
+      
+      error_message = case e
+      when Faraday::TooManyRequestsError
+        "I'm currently experiencing high demand. Please try again in a moment."
+      when Faraday::TimeoutError
+        "The response took too long. Please try again."
+      else
+        "I encountered an error. Please try again later."
+      end
+      
+      @question.update(ai_answer: error_message)
+      
+      Turbo::StreamsChannel.broadcast_update_to(
+        "question_#{@question.id}",
+        target: "question_#{@question.id}",
+        partial: "questions/question", locals: { question: @question })
+    end
   end
 
   private

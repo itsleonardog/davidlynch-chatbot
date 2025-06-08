@@ -1,54 +1,77 @@
 <%= simple_form_for question,
-  html: { class: "lynch-form", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }} do |f| %>
+  html: {
+    class: "lynch-form",
+    data: {
+      controller: "reset-form",
+      action: "turbo:submit-end->reset-form#reset"
+    }
+  } do |f| %>
   <div class="input-wrapper">
-    <%= f.input :user_question, 
-      label: false, 
-      wrapper: false, 
-      placeholder: "Ask David Lynch something...", 
-      input_html: { 
-        class: "chat-input", 
-        autocomplete: "off" 
-      } 
+    <%= f.input :user_question,
+      label: false,
+      wrapper: false,
+      placeholder: "Ask David Lynch something...",
+      input_html: {
+        class: "chat-input",
+        autocomplete: "off",
+        data: {
+          reset_form_target: "input",
+          action: "input->reset-form#enableButton"
+        }
+      }
     %>
-    <button type="submit" class="chat-submit-button" disabled>
+    <button type="submit" class="chat-submit-button" disabled data-reset-form-target="button">
       <i class="fa-solid fa-paper-plane"></i>
     </button>
   </div>
 <% end %>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  function initializeChat() {
     const chatInput = document.querySelector('.chat-input');
     const submitButton = document.querySelector('.chat-submit-button');
     const chatMessages = document.getElementById('questions');
 
     if (chatInput && submitButton) {
-      // Enable/disable submit button based on input content
       chatInput.addEventListener('input', function() {
         submitButton.disabled = !this.value.trim();
       });
 
-      // Auto-resize textarea as user types
       chatInput.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = Math.min(this.scrollHeight, 120) + 'px';
       });
-      
-      // Focus input on page load
+
       chatInput.focus();
+
+      submitButton.addEventListener('click', function(e) {
+        if (!submitButton.disabled && chatInput.value.trim()) {
+          console.log('Submit button clicked');
+        }
+      });
     }
-    
-    // Scroll to bottom of messages
+
     if (chatMessages) {
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    
-    // Add subtle film grain effect
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeChat();
+
     const noiseOverlay = document.querySelector('.noise-overlay');
     if (noiseOverlay) {
       setInterval(() => {
         noiseOverlay.style.backgroundPosition = `${Math.random() * 100}% ${Math.random() * 100}%`;
       }, 50);
     }
+  });
+
+  document.addEventListener('turbo:load', function() {
+    initializeChat();
+  });
+
+  document.addEventListener('turbo:frame-load', function() {
+    initializeChat();
   });
 </script>

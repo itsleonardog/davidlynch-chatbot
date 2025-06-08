@@ -2,32 +2,32 @@
   <!-- Red curtains on the sides -->
   <div class="landing-curtain left"></div>
   <div class="landing-curtain right"></div>
-  
+
   <!-- Ambient and noise overlays -->
   <div class="landing-ambient-overlay"></div>
   <div class="landing-noise-overlay"></div>
-  
+
   <!-- Main content -->
   <div class="landing-content">
     <div class="landing-logo">
       <img src="<%= asset_path('david-lynch-avatar.jpg') %>" alt="David Lynch" class="avatar-img">
     </div>
-    
+
     <div class="landing-title">
       <h1>DAVID LYNCH</h1>
       <div class="zigzag-line"></div>
       <h2>THE BLACK LODGE CHATBOT</h2>
     </div>
-    
+
     <div class="landing-description">
       <p>"Every day, once a day, give yourself a present."</p>
       <p>Enter the Red Room and chat with David Lynch about cinema, art, and the mysteries of life.</p>
     </div>
-    
+
     <div class="landing-actions">
-      <%= link_to "ENTER THE RED ROOM", new_user_session_path, class: "btn-lynch-login" %>
+      <%= link_to "ENTER THE RED ROOM", questions_path, class: "btn-lynch-login" %>
     </div>
-    
+
     <div class="landing-footer">
       <%= link_to "Why login?", why_login_path, class: "why-login-link" %>
     </div>

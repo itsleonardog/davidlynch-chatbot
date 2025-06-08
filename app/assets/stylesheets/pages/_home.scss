@@ -1,65 +1,35 @@
-// Variables (matching the chatbot theme)
-$dark-blue: #0a0e17;
-$red-room: #9b0000;
-$black-lodge: #000000;
-$white-lodge: #ffffff;
-$zigzag-color: #b30000;
-$curtain-red: #8b0000;
-$text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
 
-// Breakpoints
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
 
-// Main Landing Page Container
 .lynch-landing {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background-color: $black-lodge;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  font-family: 'Courier New', monospace;
+  @include lynch-container;
 }
 
-// Red Curtains
 .landing-curtain {
   position: absolute;
   top: 0;
   height: 100%;
   width: 20%;
-  background: repeating-linear-gradient(
-    90deg,
-    $curtain-red,
-    $curtain-red 20px,
-    darken($curtain-red, 10%) 20px,
-    darken($curtain-red, 10%) 40px
-  );
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+  @include red-curtain;
   z-index: 3;
   transition: width 0.3s ease;
-  
+
   &.left {
     left: 0;
   }
-  
+
   &.right {
     right: 0;
   }
-  
-  @media (max-width: $breakpoint-md) {
+
+  @include media-md {
     width: 10%;
   }
-  
-  @media (max-width: $breakpoint-sm) {
-    display: none; // Hide curtains on mobile
+
+  @include media-sm {
+    display: none;
   }
 }
 
-// Main Content Area
 .landing-content {
   background: $dark-blue;
   width: 100%;
@@ -74,12 +44,12 @@ $breakpoint-lg: 992px;
   position: relative;
   z-index: 2;
   margin: 0 20px;
-  
-  @media (max-width: $breakpoint-md) {
+
+  @include media-md {
     padding: 2rem;
   }
-  
-  @media (max-width: $breakpoint-sm) {
+
+  @include media-sm {
     margin: 0;
     border-width: 0;
     height: 100vh;
@@ -88,10 +58,9 @@ $breakpoint-lg: 992px;
   }
 }
 
-// Logo/Avatar
 .landing-logo {
   margin-bottom: 2rem;
-  
+
   .avatar-img {
     width: 120px;
     height: 120px;
@@ -100,18 +69,17 @@ $breakpoint-lg: 992px;
     border: 3px solid $red-room;
     box-shadow: 0 0 15px rgba($red-room, 0.7);
     filter: contrast(1.1) grayscale(0.3);
-    
-    @media (max-width: $breakpoint-sm) {
+
+    @include media-sm {
       width: 100px;
       height: 100px;
     }
   }
 }
 
-// Title Section
 .landing-title {
   margin-bottom: 2rem;
-  
+
   h1 {
     color: $white-lodge;
     font-size: 2.5rem;
@@ -119,137 +87,96 @@ $breakpoint-lg: 992px;
     letter-spacing: 4px;
     margin: 0;
     text-shadow: $text-shadow;
-    
-    @media (max-width: $breakpoint-sm) {
+
+    @include media-sm {
       font-size: 2rem;
       letter-spacing: 2px;
     }
   }
-  
+
   h2 {
     color: $red-room;
     font-size: 1.2rem;
     letter-spacing: 2px;
     margin-top: 0.5rem;
     text-shadow: 0 0 5px rgba($red-room, 0.5);
-    
-    @media (max-width: $breakpoint-sm) {
+
+    @include media-sm {
       font-size: 1rem;
     }
   }
-  
+
   .zigzag-line {
-    height: 6px;
+    @include zigzag-pattern(6px, 12px);
     width: 100%;
     margin: 1rem auto;
-    background-image: linear-gradient(45deg, transparent 33.333%, $zigzag-color 33.333%, $zigzag-color 66.667%, transparent 66.667%),
-                    linear-gradient(-45deg, transparent 33.333%, $zigzag-color 33.333%, $zigzag-color 66.667%, transparent 66.667%);
-    background-size: 12px 12px;
     
-    @media (max-width: $breakpoint-sm) {
-      height: 4px;
-      background-size: 8px 8px;
+    @include media-sm {
+      @include zigzag-pattern(4px, 8px);
       margin: 0.7rem auto;
     }
   }
 }
 
-// Description Text
 .landing-description {
   margin-bottom: 2.5rem;
-  
+
   p {
     color: $white-lodge;
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 1rem;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-    
+
     &:first-child {
       font-style: italic;
       color: lighten($red-room, 20%);
     }
-    
-    @media (max-width: $breakpoint-sm) {
+
+    @include media-sm {
       font-size: 0.95rem;
       margin-bottom: 0.7rem;
     }
   }
 }
 
-// Login Button
 .landing-actions {
   margin-bottom: 2rem;
-  
+
   .btn-lynch-login {
-    display: inline-block;
-    background-color: $red-room;
-    color: $white-lodge;
-    font-size: 1.1rem;
+    @include lynch-button($red-room, $white-lodge, 0.8rem 2rem);
     font-weight: bold;
-    letter-spacing: 2px;
-    padding: 0.8rem 2rem;
     border: 2px solid darken($red-room, 10%);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba($red-room, 0.5);
+    box-shadow: $box-shadow-red;
     
     &:hover {
-      background-color: darken($red-room, 10%);
-      transform: scale(1.05);
       box-shadow: 0 0 20px rgba($red-room, 0.7);
     }
     
-    @media (max-width: $breakpoint-sm) {
+    @include media-sm {
       font-size: 1rem;
       padding: 0.7rem 1.5rem;
     }
   }
 }
 
-// Footer Link
 .landing-footer {
   .why-login-link {
     color: rgba($white-lodge, 0.6);
     font-size: 0.9rem;
     text-decoration: underline;
     transition: color 0.3s ease;
-    
+
     &:hover {
       color: $white-lodge;
     }
   }
 }
 
-// Ambient Overlay
 .landing-ambient-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-  pointer-events: none;
-  z-index: 1;
-  
-  @media (max-width: $breakpoint-sm) {
-    opacity: 0.4;
-  }
+  @include ambient-overlay;
 }
 
-// Noise Overlay
 .landing-noise-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: 1;
-  
-  @media (max-width: $breakpoint-sm) {
-    opacity: 0.03;
-  }
+  @include noise-overlay;
 }
